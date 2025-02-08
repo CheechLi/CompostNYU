@@ -1,4 +1,4 @@
-#!/Users/cheechli/CompostNYU/.venv/bin/python
+#!/Users/cheechli/hackNYU-CompostED/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
