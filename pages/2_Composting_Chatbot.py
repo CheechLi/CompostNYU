@@ -51,7 +51,7 @@ def get_response(question):
         return f"Error processing request: {e}"
 
 # Streamlit UI
-st.title("Test AI Chatbot")
+st.title("CompostBot")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
