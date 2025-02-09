@@ -7,7 +7,6 @@ def main():
     <style>
     .stApp {
         background-color: #f9f1f1;
-        color: #90EE90;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -38,6 +37,18 @@ def main():
                 }
             </style>
         """, unsafe_allow_html=True)
+        st.markdown(
+            '''
+            <div style="text-align: center;">
+                <a href="https://www.linkedin.com/in/eugene-hwang-93b8842a6/" target="_blank" 
+                style="color: blue; text-decoration: none; font-size: 24px;">
+                Connect with me
+                </a>
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
+        st.markdown("<p>I am a senior in Fort Lee High School. I have been passionate for computer science since I learned coding from my father during elementary school and participated in numerous computer competitions since entering middle school. Recently, I have become interested in hackathons, being the lead organizer for a local game jam and attending HackNYU as my first hackathon. I am also passionate for sustainability and am the founding president of a student composting organization named ComposTogether at my town.</p>", unsafe_allow_html=True)
 
     with col2:
         st.markdown("<h1 style='text-align: center;'>Yingqi (Cheech) Li</h1>", unsafe_allow_html=True)
@@ -63,6 +74,17 @@ def main():
                 }
             </style>
         """, unsafe_allow_html=True)
-        st.markdown("<h2>Hello! My name is Yingqi (Cheech) Li and I am a current junior at Fort Lee High School. HackNYU was my first ever official in-person hackathon after co-hosting Counterspell with my friend Eugene as apart of as a branch of Hack Club in Bergen County.</h2>", unsafe_allow_html=True)
+        st.markdown(
+            '''
+            <div style="text-align: center;">
+                <a href="https://www.linkedin.com/in/yingqili/" target="_blank" 
+                style="color: blue; text-decoration: none; font-size: 24px;">
+                Connect with me
+                </a>
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
+        st.markdown("<p>Hello! My name is Yingqi (Cheech) Li and I am a current junior at Fort Lee High School. HackNYU was my first ever official in-person hackathon after co-hosting Counterspell with my friend Eugene as apart of a branch of Hack Club in Bergen County. Currently, I serve as my school's class president, student council vice president, computer club president, and general manager of model United Nations. In the future, I am interested in studying a niche of computer science and government.</p>", unsafe_allow_html=True)
 if __name__ == "__main__":
     main()
