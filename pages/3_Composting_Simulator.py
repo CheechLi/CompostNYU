@@ -44,6 +44,7 @@ if("plotdata" not in st.session_state):
 
 with col2:
     # print(st.session_state.plotdata)
+    st.progress(st.session_state.weeks/15, text="Week " + str(st.session_state.weeks + 1) + " of 15")
     st.line_chart(
         st.session_state.plotdata,
         x="Weeks",
