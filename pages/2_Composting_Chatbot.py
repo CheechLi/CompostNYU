@@ -13,7 +13,7 @@ import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 
-chromadb.api.client.SharedSystemClient.clear_system_cache()
+# chromadb.api.client.SharedSystemClient.clear_system_cache()
 # Set up the model connection
 HOST = "http://68.173.160.106:11434"
 MODEL_NAME = "ch-doonoi-01:latest"
