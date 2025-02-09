@@ -11,9 +11,9 @@ def main():
     </style>
     """, unsafe_allow_html=True)
     st.markdown("<h1 style='text-align: center; font-size: 150px; color: #006400'>CompostED</h1>", unsafe_allow_html=True)
-    st.image("compost_bin.jpg")
+    st.image("images/compost_bin.jpg")
     st.markdown("<h2 style='text-align: center; font-size: 50px'>Composting is the cornerstone of food sustainability.</h2>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center'>Explore the benefits of composting with our composting simulator and chatbot!</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center'>Composting is an environmentally friendly way to recycle organic waste, reducing the amount of trash that ends up in landfills and returning valuable nutrients to the earth. ​Explore the benefits of composting with our composting simulator and chatbot!</h3>", unsafe_allow_html=True)
     # st.markdown("<a href='pages/1_About.py'>About</a>", unsafe_allow_html=True)
     # st.markdown("<a href='pages/2_Composting_Chatbot.py'>Chat</a>", unsafe_allow_html=True)
     # st.markdown("<a href='pages/3_Composting_Simulator.py'>Simulator</a>", unsafe_allow_html=True)
