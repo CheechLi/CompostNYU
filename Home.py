@@ -2,11 +2,18 @@ import streamlit as st
 
 def main():
     st.set_page_config(page_title="Composted", layout="wide")
-    st.markdown("<h1 style='text-align: center; font-size: 150px; color: #90EE90'>CompostED</h1>", unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+    .stApp {
+        background-color: #f9f1f1;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; font-size: 150px;'>CompostED</h1>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center; font-size: 50px;'>Composting is the cornerstone of food sustainability</h2>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Explore the benefits of composting with our composting simulator and chatbot!</h3>", unsafe_allow_html=True)
     st.page_link("pages/1_About.py", label="About")
-    st.page_link("pages/2_Composting_Chatbot.py", label="Chatbot")
+    st.page_link("pages/2_Composting_Chatbot.py", label="Chat")
     st.page_link("pages/3_Composting_Simulator.py", label="Simulator")
 
 if __name__ == "__main__":
