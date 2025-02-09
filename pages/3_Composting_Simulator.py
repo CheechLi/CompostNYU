@@ -60,7 +60,6 @@ with col2:
     if(st.session_state.stage == 2):
         
 
-
 with col1:
     st.write("Greens: " + str(st.session_state.greens))
     st.write("Browns: " + str(st.session_state.browns))
