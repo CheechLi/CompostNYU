@@ -47,18 +47,61 @@ with col2:
                     st.session_state.browns += 1
             set_state(1)
     if(st.session_state.stage == 1):
+
         if 2 > st.session_state.browns/st.session_state.greens:
             st.write("Because you don't have enough browns, the compost pile is way too wet and starts to smell. Add more browns to balance it out.")
         elif st.session_state.browns/st.session_state.greens > 3:
             st.write("Because you don't have enough greens, the compost pile is too dry and composting too slowly. Add more greens to balance it out.")
         else:
             st.write("Your compost pile is balanced! Make sure to keep a ratio between 2:1 and 3:1 browns to greens.")
-            st.button("Next", on_click=set_state, args=[2])
-        
+            st.button("Next", on_click=set_state, args=[random.choice([2, 3, 4])])
+            # st.button("Next", on_click=set_state, args=[2])
+
         st.button("Add Browns", on_click=addBrown)
         st.button("Add Greens", on_click=addGreen)
     if(st.session_state.stage == 2):
+        if("moisture" not in st.session_state):
+            st.session_state.moisture = random.randint(0, 100)
+        if(st.session_state.moisture < 30):
+            st.write("Your pile is too dry! Add more greens to balance it out.")
+        elif(st.session_state.moisture > 70):
+            st.write("Your pile is too wet because it rained a lot! Add more browns to balance it out.")
+        else:
+            st.write("Your pile is at a good moisture level. Keep it up!")
+            st.button("Next", on_click=set_state, args=[random.choice([3, 4])])
+
+        def addGreenMoisture():
+            addGreen()
+            st.session_state.moisture += 10
+        def addBrownMoisture():
+            addBrown()
+            st.session_state.moisture -= 10
         
+        st.button("Add Greens", on_click=addGreenMoisture)
+        st.button("Add Browns", on_click=addBrownMoisture)
+        st.write("Moisture Level: " + str(st.session_state.moisture) + "%")
+    if(st.session_state.stage == 3):
+        if("temperature" not in st.session_state):
+            st.session_state.temperature = random.randint(60, 150)
+        if(st.session_state.temperature < 40):
+            st.write("Your pile is too cold! Add more greens to heat it up.")
+        elif(st.session_state.temperature > 60):
+            st.write("Your pile is too hot! Add more browns to cool it down.")
+        else:
+            st.write("Your pile is at a good temperature. Keep it up!")
+            st.button("Next", on_click=set_state, args=[4])
+
+        def addGreenTemperature():
+            addGreen()
+            st.session_state.temperature += 10
+        def addBrownTemperature():
+            addBrown()
+            st.session_state.temperature -= 10
+        
+        st.button("Add Greens", on_click=addGreenTemperature)
+        st.button("Add Browns", on_click=addBrownTemperature)
+        st.write("Temperature: " + str(st.session_state.temperature) + "°F") 
+
 
 with col1:
     st.write("Greens: " + str(st.session_state.greens))
