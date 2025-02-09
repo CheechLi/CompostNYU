@@ -43,7 +43,7 @@ if("plotdata" not in st.session_state):
     st.session_state.plotdata = pd.DataFrame(np.array([[0, 0, 0]]), columns=["Weeks", "Greens", "Browns"])
 
 with col2:
-    print(st.session_state.plotdata)
+    # print(st.session_state.plotdata)
     st.line_chart(
         st.session_state.plotdata,
         x="Weeks",
