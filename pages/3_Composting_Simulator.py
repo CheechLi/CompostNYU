@@ -106,11 +106,17 @@ with col3:
                 st.button("Next", on_click=set_state, args=[4])
 
         def addGreenMoisture():
-            addGreen()
-            st.session_state.moisture += 10
+            if(st.session_state.moisture <= 90):
+                addGreen()
+                st.session_state.moisture += 10
+            else:
+                st.warning("Your pile is too wet! Add more browns to balance it out.")
         def addBrownMoisture():
-            addBrown()
-            st.session_state.moisture -= 10
+            if(st.session_state.moisture >= 10):
+                addBrown()
+                st.session_state.moisture -= 10
+            else:
+                st.warning("Your pile is too dry! Add more greens to balance it out.")
         
         st.button("Add Greens", on_click=addGreenMoisture)
         st.button("Add Browns", on_click=addBrownMoisture)
@@ -126,8 +132,11 @@ with col3:
             st.button("Next", on_click=set_state, args=[4])
 
         def addGreenTemperature():
-            addGreen()
-            st.session_state.temperature += 10
+            if(st.session_state.temperature <= 140):
+                addGreen()
+                st.session_state.temperature += 10
+            else:
+                st.warning("Your pile will only get hotter if the pile gets larger. The optimal temperature is between 90 and 150 degrees Fahrenheit. You cannot add any more greens for now.")
         
         st.button("Add Greens", on_click=addGreenTemperature)
         st.write("Temperature: " + str(st.session_state.temperature) + "°F") 
