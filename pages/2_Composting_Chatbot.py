@@ -6,11 +6,12 @@ from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 from langchain.vectorstores import Chroma
+import chromadb
+import time
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-import chromadb
-import time
+
 
 chromadb.api.client.SharedSystemClient.clear_system_cache()
 # Set up the model connection
