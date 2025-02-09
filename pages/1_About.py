@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 def main():
     st.set_page_config(page_title="Composted", layout="wide")
@@ -15,40 +16,55 @@ def main():
 
     with col1:
         st.markdown("<h1 style='text-align: center;'>Eugene Hwang</h1>", unsafe_allow_html=True)
-        st.markdown("""
-        <style>
-            .styled-image {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width: 300px;
-                height: 300px;
-                border: 5px solid #4CAF50;  /* Green border */
-                border-radius: 15px;  /* Rounded corners */
-                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
-            }
-        </style>
+        img = Image.open("images/YingqiLi.jpg")
+        st.image(img, caption="Yingqi (Cheech) Li", use_container_width=True)
 
-        <img class="styled-image" src="" />
+        # Apply custom CSS styles using st.markdown without breaking the image
+        st.markdown("""
+            <style>
+                img {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 300px;  /* Set the image width */
+                    height: 300px;  /* Set the image height */
+                    border: 5px solid #4CAF50;  /* Green border */
+                    border-radius: 15px;  /* Rounded corners */
+                    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
+                    transition: transform 0.3s ease-in-out;
+                }
+
+                img:hover {
+                    transform: scale(1.1);  /* Hover effect to scale the image */
+                }
+            </style>
         """, unsafe_allow_html=True)
 
     with col2:
         st.markdown("<h1 style='text-align: center;'>Yingqi (Cheech) Li</h1>", unsafe_allow_html=True)
-        st.markdown("""
-        <style>
-            .styled-image {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width: 300px;
-                height: 300px;
-                border: 5px solid #4CAF50;  /* Green border */
-                border-radius: 15px;  /* Rounded corners */
-                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
-            }
-        </style>
+        # Display image using st.image()
+        img = Image.open("images/YingqiLi.jpg")
+        st.image(img, caption="Yingqi (Cheech) Li", use_container_width=True)
 
-        <img class="styled-image" src="images/YingqiLi.jpg" />
+        # Apply custom CSS styles using st.markdown without breaking the image
+        st.markdown("""
+            <style>
+                img {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 200;  /* Set the image width */
+                    height: 200;  /* Set the image height */
+                    border: 5px solid #4CAF50;  /* Green border */
+                    border-radius: 15px;  /* Rounded corners */
+                    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
+                    transition: transform 0.3s ease-in-out;
+                }
+
+                img:hover {
+                    transform: scale(1.1);  /* Hover effect to scale the image */
+                }
+            </style>
         """, unsafe_allow_html=True)
 if __name__ == "__main__":
     main()
