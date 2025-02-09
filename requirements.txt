@@ -1,4 +1,5 @@
 streamlit
+chromadb
 plotly
 gspread
 oauth2client
