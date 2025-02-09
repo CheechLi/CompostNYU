@@ -63,5 +63,6 @@ def main():
                 }
             </style>
         """, unsafe_allow_html=True)
+        st.markdown("<h2>Hello! My name is Yingqi (Cheech) Li and I am a current junior at Fort Lee High School. HackNYU was my first ever official in-person hackathon after co-hosting Counterspell with my friend Eugene as apart of as a branch of Hack Club in Bergen County.</h2>", unsafe_allow_html=True)
 if __name__ == "__main__":
     main()
