@@ -16,7 +16,7 @@ def main():
 
     with col1:
         st.markdown("<h1 style='text-align: center;'>Eugene Hwang</h1>", unsafe_allow_html=True)
-        img = Image.open("images/YingqiLi.jpg")
+        img = Image.open("images/eugene_hwang.jpg")
         st.image(img, use_container_width=False)
 
         # Apply custom CSS styles using st.markdown without breaking the image
@@ -24,6 +24,8 @@ def main():
             <style>
                 img {
                     display: block;
+                    width: 100%;
+                    height: 100%;
                     border: 5px solid #4CAF50;  /* Green border */
                     border-radius: 15px;  /* Rounded corners */
                     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
@@ -40,7 +42,7 @@ def main():
     with col2:
         st.markdown("<h1 style='text-align: center;'>Yingqi (Cheech) Li</h1>", unsafe_allow_html=True)
         # Display image using st.image()
-        img = Image.open("images/YingqiLi.jpg")
+        img = Image.open("images/yingqi_li.jpg")
         st.image(img, use_container_width=False)
 
         # Apply custom CSS styles using st.markdown without breaking the image
@@ -48,6 +50,8 @@ def main():
             <style>
                 img {
                     display: block;
+                    width: 100%;
+                    height: 100%;
                     border: 5px solid #4CAF50;  /* Green border */
                     border-radius: 15px;  /* Rounded corners */
                     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
