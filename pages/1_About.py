@@ -17,17 +17,13 @@ def main():
     with col1:
         st.markdown("<h1 style='text-align: center;'>Eugene Hwang</h1>", unsafe_allow_html=True)
         img = Image.open("images/YingqiLi.jpg")
-        st.image(img, caption="Yingqi (Cheech) Li", use_container_width=False)
+        st.image(img, use_container_width=False)
 
         # Apply custom CSS styles using st.markdown without breaking the image
         st.markdown("""
             <style>
                 img {
                     display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 300px;  /* Set the image width */
-                    height: 300px;  /* Set the image height */
                     border: 5px solid #4CAF50;  /* Green border */
                     border-radius: 15px;  /* Rounded corners */
                     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
@@ -45,17 +41,13 @@ def main():
         st.markdown("<h1 style='text-align: center;'>Yingqi (Cheech) Li</h1>", unsafe_allow_html=True)
         # Display image using st.image()
         img = Image.open("images/YingqiLi.jpg")
-        st.image(img, caption="Yingqi (Cheech) Li", use_container_width=False)
+        st.image(img, use_container_width=False)
 
         # Apply custom CSS styles using st.markdown without breaking the image
         st.markdown("""
             <style>
                 img {
                     display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 200;  /* Set the image width */
-                    height: 200;  /* Set the image height */
                     border: 5px solid #4CAF50;  /* Green border */
                     border-radius: 15px;  /* Rounded corners */
                     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Shadow effect */
