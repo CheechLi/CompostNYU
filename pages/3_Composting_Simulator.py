@@ -1,19 +1,26 @@
 import streamlit as st
 import random
+import numpy as np
+import pandas as pd
 import simulator.choices as choices
 
 st.title("Composting Simulator")
 
+if 'stage' not in st.session_state:
+    st.session_state.stage = 0
+
 def set_state(i):
     st.session_state.stage = i
 
-if 'stage' not in st.session_state:
-    st.session_state.stage = 0
+if 'weeks' not in st.session_state:
+    st.session_state.weeks = 0
+
+st.subheader("Week " + str(st.session_state.weeks + 1))
 
 greens = ["fruits/vegetables", "coffee grounds", "eggshells", "grass clippings", "leaves", "tea bags", "weeds", "yard trimmings", "flowers"]
 browns = ["cardboard", "newspaper", "organic paper", "paper straw", "wood chips", "sawdust", "hay", "egg cartons", "toilet paper rolls"]
 not_allowed = ["dairy", "meat", "bones", "fish", "grease", "oil", "glossy paper", "pet waste", "weeds with seeds", "diseased plants", "inorganic materials"]
-col1, col2 = st.columns([1, 3])
+col1, col2, col3 = st.columns([1, 3, 1])
 
 if("greens" not in st.session_state):
     st.session_state.greens = 0
@@ -21,16 +28,33 @@ if("browns" not in st.session_state):
     st.session_state.browns = 0
 
 def addGreen():
+    st.session_state.plotdata.iloc[st.session_state.weeks + 1, 1] += 1
     st.session_state.greens += 1
 
 def addBrown():
+    st.session_state.plotdata.iloc[st.session_state.weeks + 1, 2] += 1
     st.session_state.browns += 1
 
 if("ch" not in st.session_state):
     st.session_state.ch = choices.getChoices()
 
+# st.subheader(str(st.session_state.stage))
+if("plotdata" not in st.session_state):
+    st.session_state.plotdata = pd.DataFrame(np.array([[0, 0, 0]]), columns=["Weeks", "Greens", "Browns"])
+
 with col2:
+    print(st.session_state.plotdata)
+    st.line_chart(
+        st.session_state.plotdata,
+        x="Weeks",
+        y=["Greens", "Browns"],
+        color=["#964B00", "#00FF00"])
+
+with col3:
     if(st.session_state.stage == 0):
+        if(len(st.session_state.plotdata) != st.session_state.weeks + 2):
+            newrow = pd.DataFrame(np.array([[st.session_state.weeks + 1, st.session_state.greens, st.session_state.browns]]), columns=["Weeks", "Greens", "Browns"])
+            st.session_state.plotdata = pd.concat([st.session_state.plotdata, newrow], ignore_index=True)
         chSubmit = st.button("Submit")
         st.write("You now have the following items that you're considering to compost. Choose the items that can be composted:")
         options = st.multiselect("Select the items that can be composted:", st.session_state.ch, disabled=chSubmit)
@@ -41,10 +65,15 @@ with col2:
                     st.write("You realized that you can't compost " + c + ". You discarded it.")
                 if(c not in not_allowed and c not in options):
                     st.write("You realized that you should have composted " + c + ". You added it to the compost pile.")
+                    if(c in greens):
+                        addGreen()
+                    if(c in browns):
+                        addBrown()
                 if(c in greens and c in options):
-                    st.session_state.greens += 1
+                    addGreen()
                 if(c in browns and c in options):
-                    st.session_state.browns += 1
+                    addBrown()
+                
             set_state(1)
     if(st.session_state.stage == 1):
 
@@ -54,21 +83,27 @@ with col2:
             st.write("Because you don't have enough greens, the compost pile is too dry and composting too slowly. Add more greens to balance it out.")
         else:
             st.write("Your compost pile is balanced! Make sure to keep a ratio between 2:1 and 3:1 browns to greens.")
-            st.button("Next", on_click=set_state, args=[random.choice([2, 3, 4])])
+            if(st.session_state.browns/st.session_state.greens > 3):
+                st.button("Next", on_click=set_state, args=[random.choice([2, 3])])
+            else:
+                st.button("Next", on_click=set_state, args=[random.choice([2, 4])])
             # st.button("Next", on_click=set_state, args=[2])
 
         st.button("Add Browns", on_click=addBrown)
         st.button("Add Greens", on_click=addGreen)
     if(st.session_state.stage == 2):
         if("moisture" not in st.session_state):
-            st.session_state.moisture = random.randint(0, 100)
+            st.session_state.moisture = random.choice([random.randint(0, 30), random.randint(70, 100)])
         if(st.session_state.moisture < 30):
             st.write("Your pile is too dry! Add more greens to balance it out.")
         elif(st.session_state.moisture > 70):
             st.write("Your pile is too wet because it rained a lot! Add more browns to balance it out.")
         else:
             st.write("Your pile is at a good moisture level. Keep it up!")
-            st.button("Next", on_click=set_state, args=[random.choice([3, 4])])
+            if(st.session_state.browns/st.session_state.greens > 3):
+                st.button("Next", on_click=set_state, args=[3])
+            else:
+                st.button("Next", on_click=set_state, args=[4])
 
         def addGreenMoisture():
             addGreen()
@@ -80,13 +115,12 @@ with col2:
         st.button("Add Greens", on_click=addGreenMoisture)
         st.button("Add Browns", on_click=addBrownMoisture)
         st.write("Moisture Level: " + str(st.session_state.moisture) + "%")
+
     if(st.session_state.stage == 3):
         if("temperature" not in st.session_state):
-            st.session_state.temperature = random.randint(60, 150)
-        if(st.session_state.temperature < 40):
-            st.write("Your pile is too cold! Add more greens to heat it up.")
-        elif(st.session_state.temperature > 60):
-            st.write("Your pile is too hot! Add more browns to cool it down.")
+            st.session_state.temperature = random.randint(60, 90)
+        if(st.session_state.temperature < 90):
+            st.write("Your pile is too cold! Add more greens to heat it up between 90 to 150 degrees Fahrenheit.")
         else:
             st.write("Your pile is at a good temperature. Keep it up!")
             st.button("Next", on_click=set_state, args=[4])
@@ -94,14 +128,25 @@ with col2:
         def addGreenTemperature():
             addGreen()
             st.session_state.temperature += 10
-        def addBrownTemperature():
-            addBrown()
-            st.session_state.temperature -= 10
         
         st.button("Add Greens", on_click=addGreenTemperature)
-        st.button("Add Browns", on_click=addBrownTemperature)
         st.write("Temperature: " + str(st.session_state.temperature) + "°F") 
 
+    if(st.session_state.stage == 4):
+        st.write("Time to turn! It is crucial to allow for oxygen to reach the center of the pile. This will help the microorganisms break down the materials through aerobic decomposition.")
+        if st.button("Turn Pile"):
+            del st.session_state.ch
+            if("moisture" in st.session_state):
+                del st.session_state.moisture
+            if("temperature" in st.session_state):
+                del st.session_state.temperature
+            st.session_state.weeks += 1
+            set_state(0)
+            if(st.session_state.weeks == 15):
+                set_state(5)
+
+if(st.session_state.stage == 5):
+    st.header("Congratulations! You have successfully composted for 15 weeks. Your compost is now ready to be used in your virtual garden. Now, you are ready to compost in real life!")
 
 with col1:
     st.write("Greens: " + str(st.session_state.greens))
@@ -110,52 +155,3 @@ with col1:
         st.write("B/G Ratio: " + str(st.session_state.browns))
     else:
         st.write("B/G Ratio: " + str(st.session_state.browns / st.session_state.greens))
-
-
-
-# def main():
-#     st.set_page_config(page_title="Composted", layout="centered")
-#     st.button("Greens", on_click=addGreen)
-
-# if __name__ == "__main__":
-#     main()
-
-# import streamlit as st
-# import random
-
-# operation = st.selectbox(
-#     "Which type of operation shall we do for the numbers 1 and 2?",
-#     ["add", "subtract", "multiply", "divide"],
-# )
-
-# if "rand_num1" not in st.session_state:
-#     st.session_state["rand_num1"] = random.randint(0, 20)
-
-# if "rand_num2" not in st.session_state:
-#     st.session_state["rand_num2"] = random.randint(0, 20)
-
-# if st.toggle("Randomly generate my numbers"): # I think this looks nicer than a checkbox here
-#     if st.button("regenerate numbers"):
-#         st.session_state["rand_num1"] = random.randint(0, 20)
-#         st.session_state["rand_num2"] = random.randint(0, 20)
-#     num1 = st.session_state["rand_num1"]
-#     num2 = st.session_state["rand_num2"]
-#     st.write(f"Your random numbers are: `{num1}` and `{num2}`.")
-
-
-# else:
-#     num1 = st.number_input(
-#         "What is the first number?", min_value=0, max_value=20, key="num1"
-#     )
-
-# if st.button("Do math"):
-#     if operation == "add":
-#         num = num1 + num2
-#     elif operation == "subtract":
-#         num = num1 - num2
-#     elif operation == "multiply":
-#         num = num1 * num2
-#     elif operation == "divide":
-#         num = num1 / num2
-
-#     st.write(f"With the operation {operation}, your result is {num}.")
